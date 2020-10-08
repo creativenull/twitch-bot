@@ -57,7 +57,7 @@ const render = (): void => {
 
 render()
 
-const eventSource = new EventSource('http://0.0.0.0:4001/connect')
+const eventSource = new EventSource('http://localhost:4001/connect')
 
 const resetStateDelay = new Delay()
 

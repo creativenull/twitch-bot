@@ -6,6 +6,7 @@ import vox from './modules/vox'
 import { keywords } from './keywords'
 import { handleCommand } from './lib/handleCommand'
 import { connectOverlay } from './lib/overlayEventSource'
+import { castVote } from './lib/vote'
 
 upTimeStamp()
 
@@ -33,6 +34,12 @@ client.on('message', (target, context, msg, self) => {
       }
     })
 
+
+  // Handle casting votes
+  if(message === '1' || message === '2') {
+    castVote(context.username, parseInt(message))
+  }
+
   // Handle Commands
   if (commands.length > 0) {
     commands.forEach(({ command, args }) => {
@@ -41,7 +48,7 @@ client.on('message', (target, context, msg, self) => {
 
   // Handle Messages
   } else if (message !== undefined) {
-    // User is saying something
+    // User is saying something`
     const textMessage = message.replace(badWordsRegExp, '****')
     console.log(`${context.username}: ${textMessage}`)
 

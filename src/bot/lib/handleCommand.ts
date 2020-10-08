@@ -8,6 +8,7 @@ import vox from '../modules/vox'
 import fs from 'fs'
 import path from 'path'
 import { sendToOverlay } from './overlayEventSource'
+import { initiateVote } from './vote'
 
 export const handleCommand = (command: string, args: string[], target: string, context: Context): void => {
   // Help command
@@ -24,9 +25,12 @@ export const handleCommand = (command: string, args: string[], target: string, c
     // client.whisper(context.username, `${helpMessage}`) // not working
   }
 
+  // Allow voting
+  if(command === 'vote') initiateVote(args.join(' '))
+
   // Let users control vox
   if (command === 'vox') {
-    vox(`${context.username} says ${args}`)
+    vox(`${context.username} says ${args.join(' ')}`)
   }
 
   if (Object.prototype.hasOwnProperty.call(commands, command)) {
